@@ -46,3 +46,7 @@ next-env.d.ts
 .eslintcache
 .turbo
 .swc
+
+# Cloudflare Workers
+/.open-next/
+/.wrangler/
