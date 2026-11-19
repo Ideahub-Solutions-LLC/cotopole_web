@@ -74,7 +74,10 @@ export default function Dashboard() {
   return (
     <main className="app-shell">
       <aside className="sidebar">
-        <div className="brand"><span className="brand-mark">C</span><span className="brand-word">cotople</span></div>
+        <div className="brand">
+          <img className="brand-logo" src="/cotople-logo.webp" alt="Cotople" />
+          <img className="brand-favicon" src="/icon.png" alt="Cotople" />
+        </div>
         <div className="workspace-switcher"><span className="workspace-avatar">IS</span><span><strong>Ideahub Solutions</strong><small>Team workspace</small></span><Icon name="chevron" size={15} /></div>
         <nav className="primary-nav" aria-label="Primary navigation">
           <span className="nav-heading">Workspace</span>
