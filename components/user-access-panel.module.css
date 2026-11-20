@@ -1,0 +1,266 @@
+.page {
+  min-height: 100vh;
+  padding: 28px clamp(18px, 5vw, 72px) 60px;
+  background: #f8f8fc;
+}
+
+.header {
+  display: flex;
+  max-width: 1040px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 48px;
+}
+
+.header a {
+  color: #24253a;
+  font: 800 20px 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #85869a;
+  font-size: 11px;
+}
+
+.header > span {
+  padding: 7px 12px;
+  border-radius: 20px;
+  color: #5b52d8;
+  background: #eeecff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.panel {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid #ececf4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 32px rgba(34, 34, 66, 0.04);
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #ececf4;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: #6b60e8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.heading h1 {
+  margin: 0;
+  color: #24253a;
+  font: 700 25px 'Plus Jakarta Sans', sans-serif;
+}
+
+.heading p:not(.eyebrow) {
+  margin: 8px 0 0;
+  color: #85869a;
+  font-size: 12px;
+}
+
+.backLink {
+  color: #5d53e0;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.userList {
+  display: grid;
+}
+
+.userRow {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 110px 150px;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f5;
+}
+
+.userRow:last-child {
+  border-bottom: 0;
+}
+
+.avatar {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  color: #554bb0;
+  background: #e6e1ff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.identity strong {
+  overflow: hidden;
+  color: #323348;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.identity span {
+  overflow: hidden;
+  color: #9293a4;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status {
+  width: fit-content;
+  padding: 6px 9px;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.enabled {
+  color: #2d947a;
+  background: #e8f7f1;
+}
+
+.disabled {
+  color: #ae762c;
+  background: #fff5e3;
+}
+
+.adminLabel {
+  color: #7d7e91;
+  font-size: 10px;
+  text-align: center;
+}
+
+.actionForm {
+  display: flex;
+  min-height: 32px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 5px;
+}
+
+.enableButton,
+.disableButton {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.enableButton {
+  color: #fff;
+  background: #6659f5;
+}
+
+.enableButton:hover:not(:disabled) {
+  background: #5548e8;
+}
+
+.disableButton {
+  border-color: #e6e6ef;
+  color: #66677b;
+  background: #fff;
+}
+
+.disableButton:hover:not(:disabled) {
+  border-color: #e5bcb5;
+  color: #a64435;
+  background: #fff8f6;
+}
+
+.enableButton:disabled,
+.disableButton:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.error,
+.success {
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.error {
+  color: #a64435;
+}
+
+.success {
+  color: #2d947a;
+}
+
+.empty {
+  padding: 30px 0;
+  color: #85869a;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .page {
+    padding: 20px 14px 36px;
+  }
+
+  .header {
+    margin-bottom: 28px;
+  }
+
+  .panel {
+    padding: 21px 16px;
+  }
+
+  .heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .userRow {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .status {
+    grid-column: 2;
+  }
+
+  .actionForm,
+  .adminLabel {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    min-width: 82px;
+  }
+
+  .adminLabel {
+    align-self: center;
+  }
+}

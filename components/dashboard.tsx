@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { signOut } from "@/app/actions/auth";
 import { Icon } from "@/components/icon";
 import { leads as seedLeads, type Lead, type Temperature } from "@/lib/data";
 
@@ -54,7 +56,13 @@ function Sparkline() {
   );
 }
 
-export default function Dashboard() {
+type DashboardProps = {
+  userEmail: string;
+  userName: string;
+  isAdmin: boolean;
+};
+
+export default function Dashboard({ userEmail, userName, isAdmin }: DashboardProps) {
   const [activeNav, setActiveNav] = useState("Overview");
   const [range, setRange] = useState("Last 30 days");
   const [search, setSearch] = useState("");
@@ -70,6 +78,8 @@ export default function Dashboard() {
     setToast(message);
     window.setTimeout(() => setToast(""), 2600);
   };
+  const initials = userName.split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase() || "U";
+  const greetingName = userName.split(/\s+/)[0] || userEmail.split("@")[0];
 
   return (
     <main className="app-shell">
@@ -78,15 +88,14 @@ export default function Dashboard() {
           <img className="brand-logo" src="/cotople-logo.webp" alt="Cotople" />
           <img className="brand-favicon" src="/icon.png" alt="Cotople" />
         </div>
-        <div className="workspace-switcher"><span className="workspace-avatar">IS</span><span><strong>Ideahub Solutions</strong><small>Team workspace</small></span><Icon name="chevron" size={15} /></div>
         <nav className="primary-nav" aria-label="Primary navigation">
           <span className="nav-heading">Workspace</span>
           {navItems.map((item) => <button key={item.label} className={`nav-item ${activeNav === item.label ? "active" : ""}`} onClick={() => { setActiveNav(item.label); showToast(`${item.label} view selected`); }}><Icon name={item.icon} size={18} /><span>{item.label}</span>{item.count && <em>{item.count}</em>}</button>)}
         </nav>
         <div className="sidebar-bottom">
-          <button className="nav-item" onClick={() => showToast("Settings are coming soon")}><Icon name="settings" size={18} /><span>Settings</span></button>
+          {isAdmin && <Link className="nav-item" href="/admin/users"><Icon name="settings" size={18} /><span>Settings</span></Link>}
           <button className="nav-item" onClick={() => showToast("Help center opened")}><Icon name="help" size={18} /><span>Help center</span></button>
-          <div className="profile-card"><Avatar initials="JS" color="#d9c8ff" /><span><strong>Jordan Smith</strong><small>Admin</small></span><Icon name="more" size={18} /></div>
+          <div className="profile-card"><Avatar initials={initials} color="#d9c8ff" /><span><strong>{userName || userEmail}</strong><small>{isAdmin ? "Admin" : "User"}</small></span><form action={signOut} className="profile-signout-form"><button className="profile-signout" type="submit" aria-label="Sign out"><Icon name="logout" size={17} /></button></form></div>
         </div>
       </aside>
 
@@ -94,7 +103,7 @@ export default function Dashboard() {
         <header className="topbar"><div className="breadcrumb"><span>Workspace</span><Icon name="chevron" size={14} /><strong>{activeNav}</strong></div><div className="topbar-actions"><label className="search-box"><Icon name="search" size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search contacts" aria-label="Search contacts" /></label><button className="icon-button" aria-label="Notifications" onClick={() => showToast("You are all caught up")}><Icon name="bell" size={19} /><span className="notification-dot" /></button><button className="help-button" onClick={() => showToast("Help center opened")}><Icon name="help" size={18} />Help</button></div></header>
 
         <div className="page-content">
-          <div className="page-heading"><div><p className="eyebrow">Thursday, November 19, 2026</p><h1>Good morning, Jordan <span>✦</span></h1><p className="subheading">Here&apos;s what&apos;s happening across your team today.</p></div><button className="primary-button" onClick={() => showToast("Capture link copied to clipboard")}><Icon name="plus" size={17} />Capture contact</button></div>
+          <div className="page-heading"><div><p className="eyebrow">Thursday, November 19, 2026</p><h1>Good morning, {greetingName} <span>✦</span></h1><p className="subheading">Here&apos;s what&apos;s happening across your team today.</p></div><button className="primary-button" onClick={() => showToast("Capture link copied to clipboard")}><Icon name="plus" size={17} />Capture contact</button></div>
 
           <section className="metrics-grid" aria-label="Key metrics">{metricCards.map((metric) => <article className="metric-card" key={metric.label}><div className={`metric-icon ${metric.tone}`}><Icon name={metric.icon} size={19} /></div><div className="metric-copy"><p>{metric.label}</p><div className="metric-value-row"><strong>{metric.value}</strong><span className={`metric-delta ${metric.tone}`}>{metric.delta}</span></div><small>{metric.detail}</small></div><span className="metric-menu"><Icon name="more" size={18} /></span></article>)}</section>
 

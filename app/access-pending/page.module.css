@@ -1,0 +1,75 @@
+.page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(119, 106, 255, 0.1), transparent 42%),
+    #f8f8fc;
+}
+
+.card {
+  width: min(100%, 440px);
+  padding: 40px;
+  border: 1px solid #ececf4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 45px rgba(34, 34, 66, 0.07);
+  text-align: center;
+}
+
+.icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  color: #5e55d9;
+  background: #eeecff;
+  font: 700 20px 'Plus Jakarta Sans', sans-serif;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: #6b60e8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.card h1 {
+  margin: 0;
+  color: #24253a;
+  font: 700 22px/1.35 'Plus Jakarta Sans', sans-serif;
+}
+
+.card > p:not(.eyebrow) {
+  margin: 12px 0 23px;
+  color: #85869a;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.card button {
+  min-height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: #6659f5;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #5548e8;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 30px 22px;
+  }
+}

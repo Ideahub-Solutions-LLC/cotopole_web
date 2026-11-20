@@ -1,4 +1,4 @@
-type IconName = "grid" | "users" | "calendar" | "chart" | "settings" | "help" | "search" | "bell" | "arrow" | "chevron" | "filter" | "download" | "more" | "plus" | "spark" | "check" | "close";
+type IconName = "grid" | "users" | "calendar" | "chart" | "settings" | "help" | "search" | "bell" | "arrow" | "chevron" | "filter" | "download" | "more" | "plus" | "spark" | "check" | "close" | "logout";
 
 const paths: Record<IconName, React.ReactNode> = {
   grid: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
@@ -17,7 +17,8 @@ const paths: Record<IconName, React.ReactNode> = {
   plus: <><path d="M12 5v14M5 12h14"/></>,
   spark: <><path d="m12 3-1.5 5.5L5 10l5.5 1.5L12 17l1.5-5.5L19 10l-5.5-1.5L12 3ZM19 17l-.6 2.4L16 20l2.4.6L19 23l.6-2.4L22 20l-2.4-.6L19 17Z"/></>,
   check: <path d="m5 12 4 4L19 6"/>,
-  close: <><path d="M6 6l12 12M18 6 6 18"/></>
+  close: <><path d="M6 6l12 12M18 6 6 18"/></>,
+  logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></>
 };
 
 export function Icon({ name, size = 20, strokeWidth = 1.8 }: { name: IconName; size?: number; strokeWidth?: number }) {
