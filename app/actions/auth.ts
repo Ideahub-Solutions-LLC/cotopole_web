@@ -3,7 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isAdminEmail } from "@/lib/auth";
-import { getSupabaseConfig } from "@/lib/supabase/config";
+import { getSiteUrl, getSupabaseConfig } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export type AuthFormState = {
@@ -56,21 +56,28 @@ export async function signInWithGoogle(
   }
 
   const requestHeaders = await headers();
-  const origin = requestHeaders.get("origin");
-  const requestHost = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+  const configuredSiteUrl = getSiteUrl();
+  const forwardedHost = requestHeaders.get("x-forwarded-host")?.split(",")[0]?.trim();
+  const forwardedProto = requestHeaders.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  const requestHost = forwardedHost ?? requestHeaders.get("host");
+  const requestOrigin = requestHeaders.get("origin");
 
-  if (!origin || !requestHost) {
+  if (!configuredSiteUrl && !requestOrigin && !requestHost) {
     return { error: "Unable to start Google sign-in. Please try again." };
   }
 
   let originUrl: URL;
   try {
-    originUrl = new URL(origin);
+    originUrl = configuredSiteUrl
+      ? new URL(configuredSiteUrl)
+      : requestOrigin
+        ? new URL(requestOrigin)
+        : new URL(`${forwardedProto ?? "https"}://${requestHost}`);
   } catch {
     return { error: "Unable to start Google sign-in. Please try again." };
   }
 
-  if (originUrl.host.toLowerCase() !== requestHost.toLowerCase()) {
+  if (!configuredSiteUrl && requestHost && originUrl.host.toLowerCase() !== requestHost.toLowerCase()) {
     return { error: "Unable to start Google sign-in. Please try again." };
   }
 
