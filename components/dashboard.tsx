@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { signOut } from "@/app/actions/auth";
 import { Icon } from "@/components/icon";
 import { leads as seedLeads, type Lead, type Temperature } from "@/lib/data";
@@ -63,6 +64,7 @@ type DashboardProps = {
 };
 
 export default function Dashboard({ userEmail, userName, isAdmin }: DashboardProps) {
+  const pathname = usePathname();
   const [activeNav, setActiveNav] = useState("Overview");
   const [range, setRange] = useState("Last 30 days");
   const [search, setSearch] = useState("");
@@ -90,7 +92,11 @@ export default function Dashboard({ userEmail, userName, isAdmin }: DashboardPro
         </div>
         <nav className="primary-nav" aria-label="Primary navigation">
           <span className="nav-heading">Workspace</span>
-          {navItems.map((item) => <button key={item.label} className={`nav-item ${activeNav === item.label ? "active" : ""}`} onClick={() => { setActiveNav(item.label); showToast(`${item.label} view selected`); }}><Icon name={item.icon} size={18} /><span>{item.label}</span>{item.count && <em>{item.count}</em>}</button>)}
+          {navItems.map((item) => {
+            const href = item.label === "Overview" ? "/" : `/${item.label.toLowerCase()}`;
+            const isActive = item.label === "Overview" ? pathname === "/" : pathname.startsWith(href);
+            return <Link key={item.label} href={href} className={`nav-item ${isActive ? "active" : ""}`}><Icon name={item.icon} size={18} /><span>{item.label}</span>{item.count && <em>{item.count}</em>}</Link>;
+          })}
         </nav>
         <div className="sidebar-bottom">
           {isAdmin && <Link className="nav-item" href="/admin/users"><Icon name="settings" size={18} /><span>Settings</span></Link>}

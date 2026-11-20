@@ -1,15 +1,27 @@
 export type Temperature = "Hot" | "Warm" | "Cold";
+export type LeadRating = "hot" | "warm" | "cold";
+export type FollowUpStatus = "pending" | "contacted" | "done";
 
 export type Lead = {
   id: string;
   initials: string;
   name: string;
+  position?: string;
+  /** @deprecated Mobile uses position. Kept for legacy dashboard fixtures. */
   role: string;
   company: string;
   email: string;
   phone: string;
+  website?: string;
+  address?: string;
+  photoPath?: string | null;
+  isFavorite?: boolean;
+  rating?: LeadRating | null;
+  followUpStatus?: FollowUpStatus;
+  /** @deprecated Follow-up rating now lives on event_occurrences. */
   temperature: Temperature;
   event: string;
+  eventId?: string;
   capturedBy: string;
   capturedAt: string;
   capturedLabel: string;
@@ -28,3 +40,24 @@ export const leads: Lead[] = [
 ];
 
 export const eventStats = [16, 24, 20, 31, 27, 42, 38, 54, 46, 58, 64, 71, 68, 82, 74, 91, 88, 106, 98, 116, 109, 124, 118, 138];
+
+export type WorkspaceEvent = {
+  id: string;
+  name: string;
+  startsAt?: string;
+  notes?: string;
+  date: string;
+  location: string;
+  status: "Live" | "Upcoming" | "Completed";
+  contacts: number;
+  team: number;
+  owner: string;
+};
+
+export const events: WorkspaceEvent[] = [
+  { id: "e1", name: "Future of Work Summit", date: "Nov 18–20, 2026", location: "San Francisco, CA", status: "Live", contacts: 86, team: 3, owner: "Maya Chen" },
+  { id: "e2", name: "Design Leaders Dinner", date: "Nov 12, 2026", location: "New York, NY", status: "Completed", contacts: 24, team: 2, owner: "Daniel Wu" },
+  { id: "e3", name: "RevOps Roundtable", date: "Dec 4, 2026", location: "Austin, TX", status: "Upcoming", contacts: 0, team: 4, owner: "Alex Rivera" },
+  { id: "e4", name: "People Analytics Forum", date: "Dec 15, 2026", location: "Chicago, IL", status: "Upcoming", contacts: 0, team: 3, owner: "Maya Chen" },
+  { id: "e5", name: "Customer Experience Week", date: "Oct 21–23, 2026", location: "London, UK", status: "Completed", contacts: 58, team: 5, owner: "Daniel Wu" },
+];

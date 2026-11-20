@@ -1,4 +1,4 @@
-type IconName = "grid" | "users" | "calendar" | "chart" | "settings" | "help" | "search" | "bell" | "arrow" | "chevron" | "filter" | "download" | "more" | "plus" | "spark" | "check" | "close" | "logout";
+type IconName = "grid" | "users" | "calendar" | "chart" | "settings" | "help" | "search" | "bell" | "arrow" | "chevron" | "filter" | "download" | "more" | "plus" | "spark" | "check" | "close" | "logout" | "camera" | "image" | "edit";
 
 const paths: Record<IconName, React.ReactNode> = {
   grid: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
@@ -18,7 +18,10 @@ const paths: Record<IconName, React.ReactNode> = {
   spark: <><path d="m12 3-1.5 5.5L5 10l5.5 1.5L12 17l1.5-5.5L19 10l-5.5-1.5L12 3ZM19 17l-.6 2.4L16 20l2.4.6L19 23l.6-2.4L22 20l-2.4-.6L19 17Z"/></>,
   check: <path d="m5 12 4 4L19 6"/>,
   close: <><path d="M6 6l12 12M18 6 6 18"/></>,
-  logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></>
+  logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></>,
+  camera: <><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="3.5"/></>,
+  image: <><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 16-5-5L5 20"/></>,
+  edit: <><path d="m4 20 4.5-1 9.8-9.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m14.5 7.5 2 2"/></>
 };
 
 export function Icon({ name, size = 20, strokeWidth = 1.8 }: { name: IconName; size?: number; strokeWidth?: number }) {
