@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export type ContactInput = {
-  firstName: string; lastName: string; phone: string; email: string; company: string;
+  firstName: string; middleName: string; lastName: string; phone: string; email: string; company: string;
   position: string; website: string; address: string; photoPath?: string; isFavorite: boolean;
   rating: "hot" | "warm" | "cold" | ""; followUpStatus: "pending" | "contacted" | "done"; note: string;
   eventId?: string; captureMethod?: "manual" | "image" | "qr" | "mixed";
@@ -31,7 +31,7 @@ async function getClientAndUser() {
 }
 function contactRow(input: ContactInput, userId?: string) {
   const names = validateContact(input);
-  return { first_name: names.firstName, last_name: names.lastName, phone: optional(input.phone), email: optional(input.email), company: optional(input.company), position: optional(input.position), website: optional(input.website), address: optional(input.address), photo_path: optional(input.photoPath ?? ""), is_favorite: input.isFavorite, ...(userId ? { created_by_profile_id: userId } : {}) };
+  return { first_name: names.firstName, middle_name: optional(input.middleName), last_name: names.lastName, phone: optional(input.phone), email: optional(input.email), company: optional(input.company), position: optional(input.position), website: optional(input.website), address: optional(input.address), photo_path: optional(input.photoPath ?? ""), is_favorite: input.isFavorite, ...(userId ? { created_by_profile_id: userId } : {}) };
 }
 function occurrenceRow(input: ContactInput, eventId: string, contactId: string, userId: string) {
   return { event_id: eventId, contact_id: contactId, captured_by_profile_id: userId, capture_method: input.captureMethod ?? "manual", duplicate_resolution: input.duplicateResolution ?? "new", notes: optional(input.note), rating: input.rating || null, follow_up_status: input.followUpStatus, business_card_path: optional(input.businessCardPath ?? ""), selfie_path: optional(input.selfiePath ?? ""), ocr_raw_text: optional(input.ocrRawText ?? "") };

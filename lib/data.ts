@@ -6,6 +6,7 @@ export type Lead = {
   id: string;
   initials: string;
   name: string;
+  middleName?: string;
   position?: string;
   /** @deprecated Mobile uses position. Kept for legacy dashboard fixtures. */
   role: string;
