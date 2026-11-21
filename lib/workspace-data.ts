@@ -39,7 +39,7 @@ export async function getContactsAndEvents() {
 }
 
 function isSchemaMismatch(message: string) {
-  return /column .* does not exist|relationship .* does not exist/i.test(message);
+  return /column .* does not exist|could not find the .* column .* in the schema cache|relationship .* does not exist/i.test(message);
 }
 
 function legacyRating(value: unknown): LeadRating | null {

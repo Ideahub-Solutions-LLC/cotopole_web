@@ -68,11 +68,18 @@ export async function signInWithGoogle(
 
   let originUrl: URL;
   try {
+    const isLocalHost =
+      requestHost?.toLowerCase().startsWith("localhost:") ||
+      requestHost?.toLowerCase() === "localhost" ||
+      requestHost?.startsWith("127.0.0.1:") ||
+      requestHost === "127.0.0.1";
+    const fallbackProto = isLocalHost ? "http" : "https";
+
     originUrl = configuredSiteUrl
       ? new URL(configuredSiteUrl)
       : requestOrigin
         ? new URL(requestOrigin)
-        : new URL(`${forwardedProto ?? "https"}://${requestHost}`);
+        : new URL(`${forwardedProto ?? fallbackProto}://${requestHost}`);
   } catch {
     return { error: "Unable to start Google sign-in. Please try again." };
   }

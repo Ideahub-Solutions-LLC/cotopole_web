@@ -10,7 +10,9 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Contacts and events are read from Supabase and can be created, edited, and deleted from `/contacts` and `/events`. Apply the latest migration after the base schema to seed the initial records and enable CRUD policies. Authentication uses Supabase Auth: configure the Supabase URL and anon key, set `NEXT_PUBLIC_SITE_URL` to the public HTTPS origin of this Worker, enable Google as an OAuth provider, and set `ADMIN_EMAIL` and `ADMIN_USERNAME` in `.env.local` and in the production environment.
+For local Google sign-in, set `NEXT_PUBLIC_SITE_URL=http://localhost:3000` in `.env.local` and add `http://localhost:3000/auth/callback` to Supabase Auth's redirect URL allowlist. Production should use the deployed HTTPS origin instead.
+
+Contacts and events are read from Supabase and can be created, edited, and deleted from `/contacts` and `/events`. Apply the latest migrations after the base schema to seed the initial records, align the mobile contract, and enable CRUD policies. If PostgREST reports that `contacts.address` is missing from the schema cache, apply `supabase/migrations/20261121070000_contact_address_schema_cache.sql` (or run its SQL in the Supabase SQL editor), then retry. Authentication uses Supabase Auth: configure the Supabase URL and anon key, set `NEXT_PUBLIC_SITE_URL` to the public HTTPS origin of this Worker, enable Google as an OAuth provider, and set `ADMIN_EMAIL` and `ADMIN_USERNAME` in `.env.local` and in the production environment.
 
 ### Mobile data contract
 
